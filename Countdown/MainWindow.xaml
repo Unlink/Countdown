@@ -1,0 +1,35 @@
+﻿<Window x:Class="Countdown.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Countdown"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Časovač" Height="190.522" Width="257.942" Closing="Window_Closing" ResizeMode="CanMinimize">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="219*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Text="Veľkosť" VerticalAlignment="Top" Height="16" Margin="0,0,2.4,0"/>
+        <ComboBox Name="Velkost" Grid.Column="1" Grid.Row="0" SelectedIndex="35" Margin="1.6,2,1.6,2.2"></ComboBox>
+        <TextBlock Grid.Column="0" TextWrapping="Wrap" Text="Farba" VerticalAlignment="Top" Height="16" Margin="0,26,2.4,0" Grid.RowSpan="2"/>
+        <xctk:ColorPicker Name="Farba" Grid.Column="1" Grid.Row="1" SelectedColor="White" DisplayColorAndName="True" Margin="1.6,1.8"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Tieň" VerticalAlignment="Top" Height="16" Margin="0,0.2,2.4,0"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" Name="Tien" Margin="1.6,2.2,1.6,2" VerticalAlignment="Center" Height="15"></CheckBox>
+        <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="Čas" VerticalAlignment="Top" Height="16" Margin="0,0,2.4,0"/>
+        <TextBox Name="Cas"  Grid.Column="1" Grid.Row="3" TextChanged="Cas_TextChanged" Height="22" Margin="1.6,2,1.6,1.6">0:10:00</TextBox>
+        <Button Grid.Column="1" Grid.Row="4" Click="Button_Click" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Margin="0,2.4,1.6,0">Spusti</Button>
+        <Button Grid.Column="1" Grid.Row="5" Click="ButtonBase_OnClick" HorizontalAlignment="Right" Width="80" Margin="0,2,1.6,2.2">Ukonči</Button>
+    </Grid>
+</Window>
