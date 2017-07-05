@@ -27,10 +27,6 @@ namespace Countdown
         public MainWindow()
         {
             InitializeComponent();
-            for (int i = 20; i < 250; i++)
-            {
-                Velkost.Items.Add(i);
-            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,7 +34,7 @@ namespace Countdown
             int h, m, s;
             try
             {
-                var parsedTime = Cas.Text.Split(new[] { ':' }).Select(t => int.Parse(t)).ToArray();
+                var parsedTime = Cas.Text.Split(':').Select(t => int.Parse(t)).ToArray();
                 if (parsedTime.Count() == 3)
                 {
                     h = parsedTime[0];
@@ -60,7 +56,7 @@ namespace Countdown
 
             TimeSpan cas = new TimeSpan(h,m,s);
             Color farba = (Color) (Farba.SelectedColor ?? Colors.White);
-            int velkost = (int) Velkost.SelectedItem;
+            int velkost = (int) Velkost.Value;
             bool tien = (bool) (Tien.IsChecked ?? false);
 
             if (_clockWindow != null)
@@ -96,11 +92,6 @@ namespace Countdown
             {
                 _clockWindow.Close();
             }
-        }
-
-        private void Cas_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
