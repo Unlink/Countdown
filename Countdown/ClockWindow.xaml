@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="ClockWindow" WindowStyle="None" Background="Transparent" AllowsTransparency="True"
         Topmost="True"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
     <Grid>
         <TextBlock Margin="30" Name="tbTime" FontSize="50" Foreground="White"></TextBlock>
     </Grid>
