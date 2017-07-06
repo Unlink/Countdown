@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:Countdown"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Časovač" Height="190.522" Width="257.942" Closing="Window_Closing" ResizeMode="CanMinimize">
+        Title="Časovač" Height="212.36" Width="251.918" Closing="Window_Closing" ResizeMode="CanMinimize">
     <Grid Margin="5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -25,14 +26,23 @@
         <Slider Name="Velkost" Grid.Column="1" Grid.Row="0" Minimum="15" Maximum="250" Value="50" Margin="2"></Slider>
         <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="Farba" VerticalAlignment="Top" Height="16" Margin="2" Grid.RowSpan="2"/>
         <xctk:ColorPicker Name="Farba" Grid.Column="1" Grid.Row="1" SelectedColor="White" DisplayColorAndName="True" Margin="2"/>
-        <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Tieň" VerticalAlignment="Top" Height="16" Margin="2"/>
-        <CheckBox Grid.Column="1" Grid.Row="2" Name="Tien" Margin="2" VerticalAlignment="Center" Height="15"></CheckBox>
-        <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="Čas" VerticalAlignment="Top" Height="16" Margin="2"/>
-        <xctk:TimeSpanUpDown Name="Cas"  Grid.Column="1" Grid.Row="3" Height="22" Margin="2" Value="00:10:00"></xctk:TimeSpanUpDown>
-        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock TextWrapping="Wrap" Text="Tieň" VerticalAlignment="Top" Height="16" Margin="2"/>
+            <CheckBox Name="Tien" Margin="2" VerticalAlignment="Center" Height="15"></CheckBox>
+        </StackPanel>
+        <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="Typ" VerticalAlignment="Top" Height="16" Margin="2"/>
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock>Odpočítavanie</TextBlock>
+            <RadioButton Name="Counter" Margin="2" VerticalAlignment="Center" Height="15" IsChecked="True"></RadioButton>
+            <TextBlock Margin="10,0,0,0">Stopky</TextBlock>
+            <RadioButton Name="Stopwatch" Margin="2" VerticalAlignment="Center" Height="15"></RadioButton>
+        </StackPanel>
+        <TextBlock Grid.Column="0" Grid.Row="4" TextWrapping="Wrap" Text="Čas" VerticalAlignment="Top" Height="16" Margin="2"/>
+        <xctk:TimeSpanUpDown Name="Cas"  Grid.Column="1" Grid.Row="4" Height="22" Margin="2" Value="00:10:00" IsEnabled="{Binding ElementName=Counter, Path=IsChecked}"></xctk:TimeSpanUpDown>
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Click="ApplyButtonClick" Height="20" VerticalAlignment="Top" Width="80" Margin="2" IsEnabled="{Binding IsRunning}">Aplikuj štýl</Button>
             <Button Click="RunButtonClick" Height="20" VerticalAlignment="Top" Width="80" Margin="2">Spusti nové</Button>
         </StackPanel>
-        <Button Grid.Column="1" Grid.Row="5" Click="CloseButtonClick" HorizontalAlignment="Right" Width="80" Margin="2" IsEnabled="{Binding IsRunning}">Ukonči</Button>
+        <Button Grid.Column="1" Grid.Row="6" Click="CloseButtonClick" HorizontalAlignment="Right" Width="80" Margin="2" IsEnabled="{Binding IsRunning}">Ukonči</Button>
     </Grid>
 </Window>

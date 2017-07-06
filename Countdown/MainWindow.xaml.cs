@@ -27,7 +27,7 @@ namespace Countdown
         private double _lastLeft = 0;
         private bool _wasShown = false;
 
-        public bool IsRunning => _clockWindow != null && _clockWindow.Visibility == Visibility.Visible;
+        public bool IsRunning => _clockWindow != null && _clockWindow.IsActive;
 
         public MainWindow()
         {
@@ -38,6 +38,10 @@ namespace Countdown
         private void RunButtonClick(object sender, RoutedEventArgs e)
         {
             TimeSpan cas = Cas.Value ?? new TimeSpan(0, 0, 0);
+            if (Stopwatch.IsChecked ?? false)
+            {
+                cas = TimeSpan.Zero;
+            }
 
             if (_clockWindow != null)
             {

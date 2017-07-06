@@ -32,12 +32,13 @@ namespace Countdown
             MouseDown += Window_MouseDown;
 
             _time = cas;
+            bool counter = cas != TimeSpan.Zero;
 
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 tbTime.Text = _time.ToString();
-                if (_time == TimeSpan.Zero) _timer.Stop();
-                _time = _time.Add(TimeSpan.FromSeconds(-1));
+                if (counter && _time == TimeSpan.Zero) _timer.Stop();
+                _time = _time.Add(TimeSpan.FromSeconds(counter ? -1 : 1));
             }, Application.Current.Dispatcher);
 
             _timer.Start();
