@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,87 +13,87 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Countdown.Annotations;
 
 namespace Countdown
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private ClockWindow _clockWindow;
-        private double lastTop = 0;
-        private double lastLeft = 0;
-        private bool wasShown = false;
+        private double _lastTop = 0;
+        private double _lastLeft = 0;
+        private bool _wasShown = false;
+
+        public bool IsRunning => _clockWindow != null && _clockWindow.Visibility == Visibility.Visible;
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void RunButtonClick(object sender, RoutedEventArgs e)
         {
-            int h, m, s;
-            try
-            {
-                var parsedTime = Cas.Text.Split(':').Select(t => int.Parse(t)).ToArray();
-                if (parsedTime.Count() == 3)
-                {
-                    h = parsedTime[0];
-                    m = parsedTime[1];
-                    s = parsedTime[2];
-                }
-                else
-                {
-                    h = 0;
-                    m = parsedTime[0];
-                    s = parsedTime[1];
-                }
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show(this, "Nesprávny formát času", "Error");
-                return;
-            }
-
-            TimeSpan cas = new TimeSpan(h,m,s);
-            Color farba = (Color) (Farba.SelectedColor ?? Colors.White);
-            int velkost = (int) Velkost.Value;
-            bool tien = (bool) (Tien.IsChecked ?? false);
+            TimeSpan cas = Cas.Value ?? new TimeSpan(0, 0, 0);
 
             if (_clockWindow != null)
             {
-                lastTop = _clockWindow.Top;
-                lastLeft = _clockWindow.Left;
+                _lastTop = _clockWindow.Top;
+                _lastLeft = _clockWindow.Left;
                 _clockWindow.Close();
             }
 
-            _clockWindow = new ClockWindow(cas, farba, velkost, tien);
-            _clockWindow.Show();
-            if (wasShown)
+            _clockWindow = new ClockWindow(cas);
+            ApplyStyle();
+            if (_wasShown)
             {
-                _clockWindow.Top = lastTop;
-                _clockWindow.Left = lastLeft;
+                _clockWindow.Top = _lastTop;
+                _clockWindow.Left = _lastLeft;
             }
-            wasShown = true;
+            _wasShown = true;
+
+            _clockWindow.Show();
+            _clockWindow.Closed += (o, args) => OnPropertyChanged(nameof(IsRunning));
+            OnPropertyChanged(nameof(IsRunning));
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void ApplyStyle()
+        {
+            Color farba = (Color) (Farba.SelectedColor ?? Colors.White);
+            int velkost = (int) Velkost.Value;
+            bool tien = (bool) (Tien.IsChecked ?? false);
+            _clockWindow?.ApplyStyle(farba, velkost, tien);
+        }
+
+        private void CloseButtonClick(object sender, RoutedEventArgs e)
         {
             if (_clockWindow != null)
             {
-                lastTop = _clockWindow.Top;
-                lastLeft = _clockWindow.Left;
+                _lastTop = _clockWindow.Top;
+                _lastLeft = _clockWindow.Left;
                 _clockWindow.Close();
             }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (_clockWindow != null)
-            {
-                _clockWindow.Close();
-            }
+            _clockWindow?.Close();
+        }
+
+        private void ApplyButtonClick(object sender, RoutedEventArgs e)
+        {
+            ApplyStyle();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

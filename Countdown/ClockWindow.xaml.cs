@@ -26,7 +26,7 @@ namespace Countdown
         DispatcherTimer _timer;
         TimeSpan _time;
 
-        public ClockWindow(TimeSpan cas, Color farba, int velkost, bool tien)
+        public ClockWindow(TimeSpan cas)
         {
             InitializeComponent();
             MouseDown += Window_MouseDown;
@@ -41,12 +41,19 @@ namespace Countdown
             }, Application.Current.Dispatcher);
 
             _timer.Start();
+        }
 
+        public void ApplyStyle(Color farba, int velkost, bool tien)
+        {
             tbTime.FontSize = velkost;
             tbTime.Foreground = new SolidColorBrush(farba);
             if (tien)
             {
                 tbTime.Effect = new DropShadowEffect();
+            }
+            else
+            {
+                tbTime.Effect = null;
             }
         }
 

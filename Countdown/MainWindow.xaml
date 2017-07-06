@@ -22,14 +22,17 @@
             <ColumnDefinition Width="219*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Text="Veľkosť" VerticalAlignment="Top" Height="16" Margin="0,0,2.4,0"/>
-        <Slider Name="Velkost" Grid.Column="1" Grid.Row="0" Minimum="15" Maximum="250" Value="50" Margin="1.6,2,1.6,2.2"></Slider>
-        <TextBlock Grid.Column="0" TextWrapping="Wrap" Text="Farba" VerticalAlignment="Top" Height="16" Margin="0,26,2.4,0" Grid.RowSpan="2"/>
-        <xctk:ColorPicker Name="Farba" Grid.Column="1" Grid.Row="1" SelectedColor="White" DisplayColorAndName="True" Margin="1.6,1.8"/>
-        <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Tieň" VerticalAlignment="Top" Height="16" Margin="0,0.2,2.4,0"/>
-        <CheckBox Grid.Column="1" Grid.Row="2" Name="Tien" Margin="1.6,2.2,1.6,2" VerticalAlignment="Center" Height="15"></CheckBox>
-        <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="Čas" VerticalAlignment="Top" Height="16" Margin="0,0,2.4,0"/>
-        <TextBox Name="Cas"  Grid.Column="1" Grid.Row="3" Height="22" Margin="1.6,2,1.6,1.6">0:10:00</TextBox>
-        <Button Grid.Column="1" Grid.Row="4" Click="Button_Click" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Margin="0,2.4,1.6,0">Spusti</Button>
-        <Button Grid.Column="1" Grid.Row="5" Click="ButtonBase_OnClick" HorizontalAlignment="Right" Width="80" Margin="0,2,1.6,2.2">Ukonči</Button>
+        <Slider Name="Velkost" Grid.Column="1" Grid.Row="0" Minimum="15" Maximum="250" Value="50" Margin="2"></Slider>
+        <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="Farba" VerticalAlignment="Top" Height="16" Margin="2" Grid.RowSpan="2"/>
+        <xctk:ColorPicker Name="Farba" Grid.Column="1" Grid.Row="1" SelectedColor="White" DisplayColorAndName="True" Margin="2"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Tieň" VerticalAlignment="Top" Height="16" Margin="2"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" Name="Tien" Margin="2" VerticalAlignment="Center" Height="15"></CheckBox>
+        <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="Čas" VerticalAlignment="Top" Height="16" Margin="2"/>
+        <xctk:TimeSpanUpDown Name="Cas"  Grid.Column="1" Grid.Row="3" Height="22" Margin="2" Value="00:10:00"></xctk:TimeSpanUpDown>
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Click="ApplyButtonClick" Height="20" VerticalAlignment="Top" Width="80" Margin="2" IsEnabled="{Binding IsRunning}">Aplikuj štýl</Button>
+            <Button Click="RunButtonClick" Height="20" VerticalAlignment="Top" Width="80" Margin="2">Spusti nové</Button>
+        </StackPanel>
+        <Button Grid.Column="1" Grid.Row="5" Click="CloseButtonClick" HorizontalAlignment="Right" Width="80" Margin="2" IsEnabled="{Binding IsRunning}">Ukonči</Button>
     </Grid>
 </Window>
